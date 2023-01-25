@@ -1,0 +1,8 @@
+/build/
+
+#Eclipse
+
+.classpath
+.project
+.settings/
+.jar
