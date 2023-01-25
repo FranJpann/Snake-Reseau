@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Snake</title>
+    <title>Serpent</title>
     <style type="text/css">
       body {
         font-family: sans-serif;
