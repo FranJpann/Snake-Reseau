@@ -19,8 +19,7 @@ public class Register extends HttpServlet {
 	private UtilisateurDao utilisateurDao;
 	
 	public void init() throws ServletException {
-        DaoFactory daoFactory = DaoFactory.getInstance();
-        this.utilisateurDao = daoFactory.getUtilisateurDao();
+		this.utilisateurDao = ((DaoFactory) this.getServletContext().getAttribute("DaoFactory")).getUtilisateurDao();
     }
        
     public Register() {

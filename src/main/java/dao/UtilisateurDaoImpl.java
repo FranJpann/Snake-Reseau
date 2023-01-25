@@ -53,6 +53,43 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 		}
 		return users;
 	}
+    
+    public List<User> getLastUsers(){
+		List<User> users = new ArrayList<User>();
+		
+		//Connexion à la base
+		Connection connexion = null;
+		Statement statement = null;
+		ResultSet resultat = null;
+		
+		try {
+			connexion = daoFactory.getConnection();
+			statement = connexion.createStatement();
+			resultat = statement.executeQuery("SELECT * FROM users ORDER BY id DESC LIMIT 5;");
+			
+			while(resultat.next()) {
+				long id = resultat.getInt("id");
+				String pseudo = resultat.getString("pseudo");
+				String password = resultat.getString("password");
+				
+				User user = new User();
+				user.setId(id);
+				user.setPseudo(pseudo);
+				user.setPassword(password);
+				
+				users.add(user);
+			}
+		} catch(SQLException e) {
+		} finally {
+			try {
+				if(resultat != null) resultat.close();
+				if(statement != null) statement.close();
+				if(connexion != null) connexion.close();
+			} catch(SQLException ignore) {
+			}
+		}
+		return users;
+	}
 	
 	public void addUser(User user) {
 		Connection connexion = null;

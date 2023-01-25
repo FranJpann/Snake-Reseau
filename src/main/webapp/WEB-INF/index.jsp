@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Serpent</title>
+    <title>Snake</title>
     <style type="text/css">
       body {
         font-family: sans-serif;
@@ -15,7 +15,7 @@
       }
       .containerMain {
       	margin: 0 auto;
-      	width: 700px;
+      	width: 400px;
       	padding: 10px;
       }
       .content {
@@ -46,6 +46,15 @@
       	</c:choose>
       </div>
     </div>
+    
+    <c:forEach items="${ lastUsers }" var="user">
+    	<div class="containerMain">
+      		<div class="content">
+      			<p style="font-size: 25px;">${ user.id } - ${ user.pseudo }</p>
+      			<a href="/profil/${ user.id }">PROFIL</a>
+      		</div>
+    	</div>
+    </c:forEach>
     
   </body>
 </html>

@@ -7,4 +7,5 @@ import beans.User;
 public interface UtilisateurDao {
 	void addUser(User user);
 	List<User> getUsers();
+	List<User> getLastUsers();
 }

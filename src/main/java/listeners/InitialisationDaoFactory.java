@@ -1,5 +1,6 @@
 package listeners;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
@@ -11,22 +12,12 @@ public class InitialisationDaoFactory implements ServletContextListener {
 
 	private DaoFactory daoFactory;
 	
-    public InitialisationDaoFactory() {
-        
-    }
-
-	/**
-     * @see ServletContextListener#contextDestroyed(ServletContextEvent)
-     */
-    public void contextDestroyed(ServletContextEvent arg0)  { 
-         // TODO Auto-generated method stub
-    }
-
-	/**
-     * @see ServletContextListener#contextInitialized(ServletContextEvent)
-     */
     public void contextInitialized(ServletContextEvent arg0)  { 
-         // TODO Auto-generated method stub
+    	ServletContext servletContext = arg0.getServletContext();
+        this.daoFactory = DaoFactory.getInstance();
+        servletContext.setAttribute( "DaoFactory" , this.daoFactory );
     }
-	
+    
+    public void contextDestroyed(ServletContextEvent arg0)  { 
+    }
 }

@@ -23,8 +23,7 @@ public class Login extends HttpServlet {
     }
     
     public void init() throws ServletException {
-        DaoFactory daoFactory = DaoFactory.getInstance();
-        this.utilisateurDao = daoFactory.getUtilisateurDao();
+        this.utilisateurDao = ((DaoFactory) this.getServletContext().getAttribute("DaoFactory")).getUtilisateurDao();
     }
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -47,7 +46,7 @@ public class Login extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("currentUser", currentUser);
 			
-			this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+			this.getServletContext().getRequestDispatcher("/Index").forward(request, response);
 			
 		}catch(ConnectionFormException e) {
 			request.setAttribute("errorConnectionForm", e.getMessage());
