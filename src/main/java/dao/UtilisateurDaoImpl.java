@@ -17,6 +17,29 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
         this.daoFactory = daoFactory;
     }
     
+    public boolean isUserInDB(String pseudo, String password) {
+    	//Connexion à la base
+    	Connection connexion = null;
+    	Statement statement = null;
+    	ResultSet resultat = null;
+    	
+    	Boolean isInDB = false;
+    	
+    	try {
+			connexion = daoFactory.getConnection();
+			statement = connexion.createStatement();
+			resultat = statement.executeQuery("SELECT id, pseudo FROM users WHERE pseudo='"+ pseudo + "' && password=MD5('"+ password +"');");
+			
+			
+			if(resultat.next() == true) {
+				isInDB = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	return isInDB;
+    }
+    
     public List<User> getUsers(){
 		List<User> users = new ArrayList<User>();
 		
@@ -28,17 +51,15 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 		try {
 			connexion = daoFactory.getConnection();
 			statement = connexion.createStatement();
-			resultat = statement.executeQuery("SELECT id, pseudo, password FROM users;");
+			resultat = statement.executeQuery("SELECT id, pseudo FROM users;");
 			
 			while(resultat.next()) {
 				long id = resultat.getInt("id");
 				String pseudo = resultat.getString("pseudo");
-				String password = resultat.getString("password");
 				
 				User user = new User();
 				user.setId(id);
 				user.setPseudo(pseudo);
-				user.setPassword(password);
 				
 				users.add(user);
 			}
@@ -70,12 +91,10 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 			while(resultat.next()) {
 				long id = resultat.getInt("id");
 				String pseudo = resultat.getString("pseudo");
-				String password = resultat.getString("password");
 				
 				User user = new User();
 				user.setId(id);
 				user.setPseudo(pseudo);
-				user.setPassword(password);
 				
 				users.add(user);
 			}
@@ -98,7 +117,7 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 		try {
 			connexion = daoFactory.getConnection();
 			
-			preparedStatement = connexion.prepareStatement("INSERT INTO users(pseudo, password) VALUES(?, ?);");
+			preparedStatement = connexion.prepareStatement("INSERT INTO users(pseudo, password) VALUES(?, MD5(?));");
 			preparedStatement.setString(1, user.getPseudo());
 			preparedStatement.setString(2, user.getPassword());
 			
