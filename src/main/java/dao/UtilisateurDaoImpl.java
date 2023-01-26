@@ -17,27 +17,26 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
         this.daoFactory = daoFactory;
     }
     
-    public boolean isUserInDB(String pseudo, String password) {
-    	//Connexion à la base
-    	Connection connexion = null;
-    	Statement statement = null;
-    	ResultSet resultat = null;
-    	
-    	Boolean isInDB = false;
+    public User getUserByPseudoPassword(String pseudo, String password) throws DaoException {
+    	User user = new User();
     	
     	try {
-			connexion = daoFactory.getConnection();
-			statement = connexion.createStatement();
-			resultat = statement.executeQuery("SELECT id, pseudo FROM users WHERE pseudo='"+ pseudo + "' && password=SHA1('"+ password +"');");
+			Connection connexion = daoFactory.getConnection();
+			Statement statement = connexion.createStatement();
+			ResultSet resultat = statement.executeQuery("SELECT id, pseudo FROM users WHERE pseudo='"+ pseudo + "' && password=SHA1('"+ password +"');");
 			
 			
 			if(resultat.next() == true) {
-				isInDB = true;
+				user.setId(resultat.getInt("id"));
+				user.setPseudo(resultat.getString("pseudo"));
 			}
+			else throw new DaoException("User is not in Database");
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-    	return isInDB;
+    	
+    	return user;
     }
     
     public User getUserByID(long id) throws DaoException{
@@ -46,14 +45,12 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
     	try {
 			Connection connexion = daoFactory.getConnection();
 			Statement statement = connexion.createStatement();
-			ResultSet resultat = statement.executeQuery("SELECT pseudo FROM users WHERE id='"+id+"';");
+			ResultSet resultat = statement.executeQuery("SELECT id, pseudo FROM users WHERE id='"+id+"';");
 			
-			if(resultat.next() == false) throw new DaoException("User not in database");
+			if(resultat.next() == false) throw new DaoException("User is not in database");
 			else {
-				user.setId(id);
+				user.setId(resultat.getInt("id"));
 				user.setPseudo(resultat.getString("pseudo"));
-				
-				return user;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -65,15 +62,10 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
     public List<User> getUsers(){
 		List<User> users = new ArrayList<User>();
 		
-		//Connexion à la base
-		Connection connexion = null;
-		Statement statement = null;
-		ResultSet resultat = null;
-		
 		try {
-			connexion = daoFactory.getConnection();
-			statement = connexion.createStatement();
-			resultat = statement.executeQuery("SELECT id, pseudo FROM users;");
+			Connection connexion = daoFactory.getConnection();
+			Statement statement = connexion.createStatement();
+			ResultSet resultat = statement.executeQuery("SELECT id, pseudo FROM users;");
 			
 			while(resultat.next()) {
 				long id = resultat.getInt("id");
@@ -86,28 +78,18 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 				users.add(user);
 			}
 		} catch(SQLException e) {
-		} finally {
-			try {
-				if(resultat != null) resultat.close();
-				if(statement != null) statement.close();
-				if(connexion != null) connexion.close();
-			} catch(SQLException ignore) {
-			}
 		}
+		
 		return users;
 	}
     
     public List<User> getLastUsers(){
 		List<User> users = new ArrayList<User>();
 		
-		Connection connexion = null;
-		Statement statement = null;
-		ResultSet resultat = null;
-		
 		try {
-			connexion = daoFactory.getConnection();
-			statement = connexion.createStatement();
-			resultat = statement.executeQuery("SELECT * FROM users ORDER BY id DESC LIMIT 5;");
+			Connection connexion = daoFactory.getConnection();
+			Statement statement = connexion.createStatement();
+			ResultSet resultat = statement.executeQuery("SELECT * FROM users ORDER BY id DESC LIMIT 5;");
 			
 			while(resultat.next()) {
 				long id = resultat.getInt("id");
@@ -120,14 +102,8 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 				users.add(user);
 			}
 		} catch(SQLException e) {
-		} finally {
-			try {
-				if(resultat != null) resultat.close();
-				if(statement != null) statement.close();
-				if(connexion != null) connexion.close();
-			} catch(SQLException ignore) {
-			}
 		}
+		
 		return users;
 	}
 	
@@ -149,13 +125,10 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 	}
 
 	public void deleteUser(User user) {
-		Connection connexion = null;
-		PreparedStatement preparedStatement = null;
-		
 		try {
-			connexion = daoFactory.getConnection();
+			Connection connexion = daoFactory.getConnection();
 			
-			preparedStatement = connexion.prepareStatement("DELETE FROM users WHERE pseudo=? AND password=SHA1(?);");
+			PreparedStatement preparedStatement = connexion.prepareStatement("DELETE FROM users WHERE pseudo=? AND password=SHA1(?);");
 			preparedStatement.setString(1, user.getPseudo());
 			preparedStatement.setString(2, user.getPassword());
 			preparedStatement.executeUpdate();
@@ -166,13 +139,10 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 	}
 
 	public void updateUser(User user, String pseudo) {
-		Connection connexion = null;
-		PreparedStatement preparedStatement = null;
-		
 		try {
-			connexion = daoFactory.getConnection();
+			Connection connexion = daoFactory.getConnection();
 			
-			preparedStatement = connexion.prepareStatement("UPDATE users SET pseudo=? WHERE pseudo=? AND password=SHA1(?);");
+			PreparedStatement preparedStatement = connexion.prepareStatement("UPDATE users SET pseudo=? WHERE pseudo=? AND password=SHA1(?);");
 			preparedStatement.setString(2, user.getPseudo());
 			preparedStatement.setString(3,user.getPassword());
 			preparedStatement.setString(1,pseudo);
@@ -184,13 +154,11 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 	}
 
 	public void updatePassword(User user,String passwd) {
-		Connection connexion = null;
-		PreparedStatement preparedStatement = null;
 		
 		try {
-			connexion = daoFactory.getConnection();
+			Connection connexion = daoFactory.getConnection();
 			
-			preparedStatement = connexion.prepareStatement("UPDATE users SET password=SHA1(?) WHERE pseudo=? AND password=SHA1(?);");
+			PreparedStatement preparedStatement = connexion.prepareStatement("UPDATE users SET password=SHA1(?) WHERE pseudo=? AND password=SHA1(?);");
 			preparedStatement.setString(2, user.getPseudo());
 			preparedStatement.setString(3,user.getPassword());
 			preparedStatement.setString(1,passwd);

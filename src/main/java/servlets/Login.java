@@ -39,8 +39,7 @@ public class Login extends HttpServlet {
 			connectionForm.verifierId(request, utilisateurDao);
 			
 			//	Ajout dans un objet User
-			User currentUser = new User();
-			currentUser.setPseudo(connectionForm.getLog());
+			User currentUser = connectionForm.getUser();
 			
 			//	Ajout de User dans une variable de session
 			HttpSession session = request.getSession();
