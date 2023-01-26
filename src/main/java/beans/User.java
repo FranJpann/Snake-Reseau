@@ -2,9 +2,9 @@ package beans;
 
 public class User {
 	
+	private long id;
 	private String Pseudo;
 	private String Password;
-	private long id;
 	
 	public String getPassword() {
 		return Password;

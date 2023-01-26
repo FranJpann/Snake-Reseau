@@ -14,6 +14,6 @@ public interface UtilisateurDao {
 	
 	void deleteUser(User user);
 	
-	public void updateUser(User user, String pseudo);
-	public void updatePassword(User user, String password);
+	/*	 updateUser -> pour modifier seulement le pseudo, mettre null à la place de password	*/
+	public void updateUser(User user, String pseudo, String password);
 }

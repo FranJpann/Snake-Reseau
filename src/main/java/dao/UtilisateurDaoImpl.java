@@ -138,30 +138,22 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 		}
 	}
 
-	public void updateUser(User user, String pseudo) {
+	public void updateUser(User user, String pseudo, String password) {
 		try {
 			Connection connexion = daoFactory.getConnection();
+			PreparedStatement preparedStatement;
 			
-			PreparedStatement preparedStatement = connexion.prepareStatement("UPDATE users SET pseudo=? WHERE pseudo=? AND password=SHA1(?);");
-			preparedStatement.setString(2, user.getPseudo());
-			preparedStatement.setString(3,user.getPassword());
-			preparedStatement.setString(1,pseudo);
-			
-			preparedStatement.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void updatePassword(User user,String passwd) {
-		
-		try {
-			Connection connexion = daoFactory.getConnection();
-			
-			PreparedStatement preparedStatement = connexion.prepareStatement("UPDATE users SET password=SHA1(?) WHERE pseudo=? AND password=SHA1(?);");
-			preparedStatement.setString(2, user.getPseudo());
-			preparedStatement.setString(3,user.getPassword());
-			preparedStatement.setString(1,passwd);
+			if(password == null) {
+				preparedStatement = connexion.prepareStatement("UPDATE users SET pseudo=? WHERE id=?;");
+				preparedStatement.setString(1, pseudo);
+				preparedStatement.setInt(2, (int) user.getId());
+			}
+			else {
+				preparedStatement = connexion.prepareStatement("UPDATE users SET pseudo=? , password=SHA1(?) WHERE id=?;");
+				preparedStatement.setString(1, pseudo);
+				preparedStatement.setString(2, password);
+				preparedStatement.setInt(3, (int) user.getId());
+			}
 			
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
