@@ -40,9 +40,8 @@ public class Register extends HttpServlet {
 			
 			User user = new User();
 			user.setPseudo(request.getParameter("login"));
-			user.setPassword(request.getParameter("password"));
 			
-			utilisateurDao.addUser(user);
+			utilisateurDao.addUser(user, request.getParameter("password"));
 			this.getServletContext().getRequestDispatcher("/WEB-INF/loginPage.jsp").forward(request, response);
 		} catch (RegisterFormException e) {
 			request.setAttribute("errorRegisterForm", e.getMessage());

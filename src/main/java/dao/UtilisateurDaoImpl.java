@@ -107,7 +107,7 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 		return users;
 	}
 	
-	public void addUser(User user) {
+	public void addUser(User user, String password) {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		
@@ -116,7 +116,7 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 			
 			preparedStatement = connexion.prepareStatement("INSERT INTO users(pseudo, password) VALUES(?, SHA1(?));");
 			preparedStatement.setString(1, user.getPseudo());
-			preparedStatement.setString(2, user.getPassword());
+			preparedStatement.setString(2, password);
 			preparedStatement.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -128,9 +128,8 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 		try {
 			Connection connexion = daoFactory.getConnection();
 			
-			PreparedStatement preparedStatement = connexion.prepareStatement("DELETE FROM users WHERE pseudo=? AND password=SHA1(?);");
+			PreparedStatement preparedStatement = connexion.prepareStatement("DELETE FROM users WHERE pseudo=?;");
 			preparedStatement.setString(1, user.getPseudo());
-			preparedStatement.setString(2, user.getPassword());
 			preparedStatement.executeUpdate();
 			
 		} catch (SQLException e) {

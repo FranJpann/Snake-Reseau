@@ -4,14 +4,7 @@ public class User {
 	
 	private long id;
 	private String Pseudo;
-	private String Password;
 	
-	public String getPassword() {
-		return Password;
-	}
-	public void setPassword(String password) {
-		Password = password;
-	}
 	public void setPseudo(String Pseudo) {
 		this.Pseudo = Pseudo;
 	}
