@@ -24,6 +24,10 @@
         <servlet-name>Register</servlet-name>
         <servlet-class>servlets.Register</servlet-class>
 	</servlet>
+	<servlet>
+        <servlet-name>UserPage</servlet-name>
+        <servlet-class>servlets.UserPage</servlet-class>
+	</servlet>
 	
 	<servlet-mapping>
         <servlet-name>Login</servlet-name>
@@ -32,6 +36,10 @@
 	<servlet-mapping>
         <servlet-name>Register</servlet-name>
         <url-pattern>/Register</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+        <servlet-name>UserPage</servlet-name>
+        <url-pattern>/User</url-pattern>
 	</servlet-mapping>
 	
 </web-app>

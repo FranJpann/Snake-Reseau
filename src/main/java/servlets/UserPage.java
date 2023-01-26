@@ -7,29 +7,38 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import beans.User;
+import dao.DaoException;
 import dao.DaoFactory;
 import dao.UtilisateurDao;
 
-@WebServlet("/Index")
-public class Index extends HttpServlet {
+public class UserPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private UtilisateurDao utilisateurDao;
 	
 	public void init() throws ServletException {
-        this.utilisateurDao = ((DaoFactory) this.getServletContext().getAttribute("DaoFactory")).getUtilisateurDao();
+		this.utilisateurDao = ((DaoFactory) this.getServletContext().getAttribute("DaoFactory")).getUtilisateurDao();
     }
        
-    public Index() {
+    public UserPage() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("lastUsers", utilisateurDao.getLastUsers());
-		this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+		long id = Long.parseLong((String) request.getParameter("id"));
+		
+		try {
+			User user = utilisateurDao.getUserByID(id);
+			request.setAttribute("userRequest", user);
+			this.getServletContext().getRequestDispatcher("/WEB-INF/userPage.jsp").forward(request, response);
+		}catch(DaoException e) {
+			response.sendRedirect(request.getContextPath());
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

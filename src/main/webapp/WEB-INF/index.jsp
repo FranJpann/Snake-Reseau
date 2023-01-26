@@ -51,7 +51,7 @@
     	<div class="containerMain">
       		<div class="content">
       			<p style="font-size: 25px;">${ user.id } - ${ user.pseudo }</p>
-      			<a href="/profil/${ user.id }">PROFIL</a>
+      			<a href="/Snake-Reseau/User?id=${ user.id }">PROFIL</a>
       		</div>
     	</div>
     </c:forEach>

@@ -7,6 +7,7 @@ import beans.User;
 public interface UtilisateurDao {
 	void addUser(User user);
 	boolean isUserInDB(String pseudo, String password);
+	User getUserByID(long id) throws DaoException;
 	List<User> getUsers();
 	List<User> getLastUsers();
 	void deleteUser(User user);

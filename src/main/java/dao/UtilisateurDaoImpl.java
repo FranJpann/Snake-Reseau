@@ -40,6 +40,28 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
     	return isInDB;
     }
     
+    public User getUserByID(long id) throws DaoException{
+		User user = new User();
+		
+    	try {
+			Connection connexion = daoFactory.getConnection();
+			Statement statement = connexion.createStatement();
+			ResultSet resultat = statement.executeQuery("SELECT pseudo FROM users WHERE id='"+id+"';");
+			
+			if(resultat.next() == false) throw new DaoException("User not in database");
+			else {
+				user.setId(id);
+				user.setPseudo(resultat.getString("pseudo"));
+				
+				return user;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	
+    	return user;
+    }
+    
     public List<User> getUsers(){
 		List<User> users = new ArrayList<User>();
 		
