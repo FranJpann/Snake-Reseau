@@ -1,7 +1,6 @@
 <html>
   <head>
     <title>Snake</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     
     <style type="text/css">
       body {
@@ -28,6 +27,7 @@
       .dropdown-content{
       	display: none;
   		position: absolute;
+  		text-align: center;
   		background-color: #f1f1f1;
   		min-width: 150px;
   		box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -43,12 +43,11 @@
       		
       			<div class="containerLogin">
       				<div class="content" style="text-align: center;">
-      					<p> ${ sessionScope.currentUser.pseudo }
-      					<span class="caret"></span></p>
+      					<p> ${ sessionScope.currentUser.pseudo } &#9660;</p>
       				</div>
       				<div class="dropdown-content">
                     	<p><a href="/Snake-Reseau/User?id=${ sessionScope.currentUser.id }">Voir mon profil</a></p>
-                    	<p><a>Se déconnecter</a></p>
+                    	<p><a href="Deconnexion">Se déconnecter</a></p>
                     </div>
       			</div>
       			

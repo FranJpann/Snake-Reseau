@@ -28,6 +28,10 @@
         <servlet-name>UserPage</servlet-name>
         <servlet-class>servlets.UserPage</servlet-class>
 	</servlet>
+	<servlet>
+        <servlet-name>Deconnexion</servlet-name>
+        <servlet-class>servlets.Deconnexion</servlet-class>
+	</servlet>
 	
 	<servlet-mapping>
         <servlet-name>Login</servlet-name>
@@ -40,6 +44,10 @@
 	<servlet-mapping>
         <servlet-name>UserPage</servlet-name>
         <url-pattern>/User</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+        <servlet-name>Deconnexion</servlet-name>
+        <url-pattern>/Deconnexion</url-pattern>
 	</servlet-mapping>
 	
 </web-app>
