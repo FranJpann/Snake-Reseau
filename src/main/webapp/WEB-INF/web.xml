@@ -15,6 +15,17 @@
 	<listener>
          <listener-class>listeners.InitialisationDaoFactory</listener-class>
     </listener>
+    
+    <filter>
+  		<filter-name>AccessDatabaseFilter</filter-name>
+  		<filter-class>filters.CheckAccessDatabase</filter-class>
+	</filter>
+	
+	<filter-mapping>
+        <filter-name>AccessDatabaseFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
 	
    <servlet>
         <servlet-name>Login</servlet-name>

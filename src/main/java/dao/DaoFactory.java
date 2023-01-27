@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import com.mysql.cj.exceptions.UnableToConnectException;
+import com.mysql.cj.jdbc.exceptions.CommunicationsException;
+
 public class DaoFactory {
 	
     private String url;
@@ -20,12 +23,9 @@ public class DaoFactory {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
-
         }
-
-        DaoFactory instance = new DaoFactory(
-                "jdbc:mysql://localhost:3306/snake", "root", "mdp_bdd");
-        return instance;
+        DaoFactory instance = new DaoFactory("jdbc:mysql://localhost:3306/snake", "root", "mdp_bdd");
+		return instance;
     }
 
     public Connection getConnection() throws SQLException {
