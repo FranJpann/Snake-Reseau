@@ -38,7 +38,6 @@
     </style>
   </head>
   <body>
-  		<iframe src="https://clips.twitch.tv/embed?clip=ThankfulBumblingCardCharlieBitMe-LeXlQ5jlPr3Vuf8U&parent=localhost" frameborder="0" allowfullscreen="false" scrolling="no" height="189" width="310"></iframe>
   
       	<c:choose>
       		<c:when test="${ !empty sessionScope.currentUser }">
