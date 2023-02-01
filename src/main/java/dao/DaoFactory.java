@@ -4,9 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import com.mysql.cj.exceptions.UnableToConnectException;
-import com.mysql.cj.jdbc.exceptions.CommunicationsException;
-
 public class DaoFactory {
 	
     private String url;

@@ -1,5 +1,6 @@
-<html>
-  <head>
+<!DOCTYPE html>
+<html lang="fr">
+ <head>
     <title>Snake</title>
     
     <style type="text/css">
