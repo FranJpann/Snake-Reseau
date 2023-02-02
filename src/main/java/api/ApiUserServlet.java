@@ -44,6 +44,7 @@ public class ApiUserServlet extends HttpServlet {
 		String pseudo = (String) request.getParameter("pseudo");
 		String motdepasse = (String) request.getParameter("motdepasse");
 		
+		
 		try {
 			User user = utilisateurDao.getUserByPseudoPassword(pseudo, motdepasse);
 			sendJson(response, user);

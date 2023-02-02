@@ -23,12 +23,13 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
     	try {
 			Connection connexion = daoFactory.getConnection();
 			Statement statement = connexion.createStatement();
-			ResultSet resultat = statement.executeQuery("SELECT id, pseudo FROM users WHERE pseudo='"+ pseudo + "' && password=SHA1('"+ password +"');");
+			ResultSet resultat = statement.executeQuery("SELECT id, pseudo,skin FROM users WHERE pseudo='"+ pseudo + "' && password=SHA1('"+ password +"');");
 			
 			
 			if(resultat.next() == true) {
 				user.setId(resultat.getInt("id"));
 				user.setPseudo(resultat.getString("pseudo"));
+				user.setSkin(resultat.getString("skin"));
 			}
 			else throw new DaoException("User is not in Database");
 			
@@ -114,9 +115,10 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 		try {
 			connexion = daoFactory.getConnection();
 			
-			preparedStatement = connexion.prepareStatement("INSERT INTO users(pseudo, password) VALUES(?, SHA1(?));");
+			preparedStatement = connexion.prepareStatement("INSERT INTO users(pseudo, password,skin) VALUES(?, SHA1(?),?);");
 			preparedStatement.setString(1, user.getPseudo());
 			preparedStatement.setString(2, password);
+			preparedStatement.setString(3, "green");
 			preparedStatement.executeUpdate();
 			
 		} catch (SQLException e) {
