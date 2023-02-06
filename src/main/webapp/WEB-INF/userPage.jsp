@@ -9,7 +9,7 @@
 <body>
 	<h1> Page de ${ user.pseudo } </h1>
 	
-	<
+	
 	
 </body>
 </html>
