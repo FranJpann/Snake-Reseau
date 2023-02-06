@@ -23,7 +23,7 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
     	try {
 			Connection connexion = daoFactory.getConnection();
 			Statement statement = connexion.createStatement();
-			ResultSet resultat = statement.executeQuery("SELECT id, pseudo,skin FROM users WHERE pseudo='"+ pseudo + "' && password=SHA1('"+ password +"');");
+			ResultSet resultat = statement.executeQuery("SELECT id, pseudo, skin FROM users WHERE pseudo='"+ pseudo + "' && password=SHA1('"+ password +"');");
 			
 			
 			if(resultat.next() == true) {
@@ -31,7 +31,7 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 				user.setPseudo(resultat.getString("pseudo"));
 				user.setSkin(resultat.getString("skin"));
 			}
-			else throw new DaoException("User is not in Database");
+			else throw new DaoException("User or password wrong in Database -> "+pseudo);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -46,12 +46,13 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
     	try {
 			Connection connexion = daoFactory.getConnection();
 			Statement statement = connexion.createStatement();
-			ResultSet resultat = statement.executeQuery("SELECT id, pseudo FROM users WHERE id='"+id+"';");
+			ResultSet resultat = statement.executeQuery("SELECT id, pseudo, skin FROM users WHERE id='"+id+"';");
 			
 			if(resultat.next() == false) throw new DaoException("User is not in database");
 			else {
 				user.setId(resultat.getInt("id"));
 				user.setPseudo(resultat.getString("pseudo"));
+				user.setSkin(resultat.getString("skin"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -66,15 +67,14 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 		try {
 			Connection connexion = daoFactory.getConnection();
 			Statement statement = connexion.createStatement();
-			ResultSet resultat = statement.executeQuery("SELECT id, pseudo FROM users;");
+			ResultSet resultat = statement.executeQuery("SELECT id, pseudo, skin FROM users;");
 			
 			while(resultat.next()) {
-				long id = resultat.getInt("id");
-				String pseudo = resultat.getString("pseudo");
 				
 				User user = new User();
-				user.setId(id);
-				user.setPseudo(pseudo);
+				user.setId(resultat.getInt("id"));
+				user.setPseudo(resultat.getString("pseudo"));
+				user.setSkin(resultat.getString("skin"));
 				
 				users.add(user);
 			}
@@ -93,12 +93,11 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 			ResultSet resultat = statement.executeQuery("SELECT * FROM users ORDER BY id DESC LIMIT 5;");
 			
 			while(resultat.next()) {
-				long id = resultat.getInt("id");
-				String pseudo = resultat.getString("pseudo");
 				
 				User user = new User();
-				user.setId(id);
-				user.setPseudo(pseudo);
+				user.setId(resultat.getInt("id"));
+				user.setPseudo(resultat.getString("pseudo"));
+				user.setSkin(resultat.getString("skin"));
 				
 				users.add(user);
 			}
