@@ -131,7 +131,7 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 		try {
 			Connection connexion = daoFactory.getConnection();
 			
-			PreparedStatement preparedStatement = connexion.prepareStatement("DELETE FROM users WHERE pseudo=?;");
+			PreparedStatement preparedStatement = connexion.prepareStatement("DELETE FROM users WHERE pseudo=? ;");
 			preparedStatement.setString(1, user.getPseudo());
 			preparedStatement.executeUpdate();
 			
