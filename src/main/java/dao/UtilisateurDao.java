@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import beans.User;
@@ -16,4 +17,6 @@ public interface UtilisateurDao {
 	
 	/*	 updateUser -> pour modifier seulement le pseudo, mettre null à la place de password	*/
 	public void updateUser(User user, String pseudo, String password);
+	
+	public ArrayList<String> getSkins(User user);
 }

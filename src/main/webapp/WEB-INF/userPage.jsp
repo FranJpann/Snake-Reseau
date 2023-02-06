@@ -7,6 +7,9 @@
 <title></title>
 </head>
 <body>
-	<p> Page de ${ userRequest.pseudo } </p>
+	<h1> Page de ${ user.pseudo } </h1>
+	
+	<
+	
 </body>
 </html>

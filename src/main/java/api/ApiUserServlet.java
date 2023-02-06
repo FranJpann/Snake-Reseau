@@ -8,7 +8,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.google.gson.*;
+
+import org.json.JSONObject;
 
 import beans.User;
 import dao.DaoException;
@@ -20,8 +21,6 @@ public class ApiUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private UtilisateurDao utilisateurDao;
-	private String pseudo;
-	private Gson _gson = new Gson();
 	
 	public void init() throws ServletException {
 		this.utilisateurDao = ((DaoFactory) this.getServletContext().getAttribute("DaoFactory")).getUtilisateurDao();
@@ -30,9 +29,9 @@ public class ApiUserServlet extends HttpServlet {
 	private void sendJson(HttpServletResponse response, Object obj) throws IOException {
 		response.setContentType("application/json");
 		
-		String res = _gson.toJson(obj);
+		JSONObject jsonObj = new JSONObject(obj);
 		PrintWriter out = response.getWriter();
-		out.print(res);
+		out.print(jsonObj);
 		out.flush();
 	}
 

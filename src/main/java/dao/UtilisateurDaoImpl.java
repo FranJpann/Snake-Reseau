@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONObject;
+
 import beans.User;
 
 public class UtilisateurDaoImpl implements UtilisateurDao {
@@ -159,5 +161,29 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public ArrayList<String> getSkins(User user) {
+		ArrayList<String> arrayOfStr = new ArrayList<String>();
+		
+		try {
+			Connection connexion = daoFactory.getConnection();
+			Statement statement = connexion.createStatement();
+			ResultSet resultat = statement.executeQuery("SELECT skins FROM users WHERE pseudo='"+user.getPseudo()+"';");
+			
+			if(resultat.next()) {
+				String json = resultat.getString("skins");
+				JSONObject jsonObject = new JSONObject(json);
+				
+				for(String str : JSONObject.getNames(jsonObject)){
+					arrayOfStr.add(jsonObject.getString(str));
+				}
+			}
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return arrayOfStr;
 	}
 }

@@ -29,7 +29,8 @@ public class UserPage extends HttpServlet {
 		
 		try {
 			User user = utilisateurDao.getUserByID(id);
-			request.setAttribute("userRequest", user);
+			request.setAttribute("user", user);
+			request.setAttribute("userSkins", utilisateurDao.getSkins(user));
 			this.getServletContext().getRequestDispatcher("/WEB-INF/userPage.jsp").forward(request, response);
 		}catch(DaoException e) {
 			response.sendRedirect(request.getContextPath());
