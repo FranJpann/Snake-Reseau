@@ -1,17 +1,4 @@
 <!DOCTYPE html>
-<<<<<<< HEAD
-<html>
-<head>
-<meta charset="UTF-8">
-<title></title>
-</head>
-<body>
-	<h1> Page de ${ user.pseudo } </h1>
-	
-	
-	
-</body>
-=======
 <html lang="fr">
  <head>
     <title>Snake</title>
@@ -66,8 +53,5 @@
       	
     </div>
     
- 
-    
   </body>
->>>>>>> branch 'master' of https://github.com/FranJpann/Snake-Reseau.git
 </html>
