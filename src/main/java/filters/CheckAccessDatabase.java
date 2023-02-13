@@ -36,5 +36,4 @@ public class CheckAccessDatabase implements Filter {
 
 	public void init(FilterConfig fConfig) throws ServletException {
 	}
-
 }

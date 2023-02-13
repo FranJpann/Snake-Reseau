@@ -11,5 +11,5 @@
 			right: 0;
 			filter: brightness(50%);"
 		autoplay loop muted>
-		<source src="media/serpent.mp4" type="video/mp4">
+		<source src="media/web-media/serpent.mp4" type="video/mp4">
 </video>

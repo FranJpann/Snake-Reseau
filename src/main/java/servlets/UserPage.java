@@ -29,8 +29,13 @@ public class UserPage extends HttpServlet {
 		
 		try {
 			User user = utilisateurDao.getUserByID(id);
+			
 			request.setAttribute("user", user);
-			request.setAttribute("userSkins", utilisateurDao.getSkins(user));
+			request.setAttribute("userSkins", utilisateurDao.getSkins(user.getPseudo()));
+			request.setAttribute("history", utilisateurDao.getHistory(user.getPseudo()));
+			request.setAttribute("numberOfGames", utilisateurDao.getNumberOfGames(user.getPseudo()));
+			request.setAttribute("userBestScore", utilisateurDao.getHighestScore(user.getPseudo()));
+			
 			this.getServletContext().getRequestDispatcher("/WEB-INF/userPage.jsp").forward(request, response);
 		}catch(DaoException e) {
 			response.sendRedirect(request.getContextPath());
@@ -38,8 +43,6 @@ public class UserPage extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
 }

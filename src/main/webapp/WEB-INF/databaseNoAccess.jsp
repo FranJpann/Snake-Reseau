@@ -1,5 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,8 +7,8 @@
 <body>
 	<div style="text-align: center; margin-top: 50px;">
       <h1>Une erreur s'est produite</h1>
-      <h1>Aucun accÃ¨s Ã  la base de donnÃ©e</h1>
-      <p>Veuillez rÃ©essayer plus tard.</p>
+      <h1>Aucun accès à la base de donnée</h1>
+      <p>Veuillez réessayer plus tard.</p>
     </div>
 </body>
 </html>

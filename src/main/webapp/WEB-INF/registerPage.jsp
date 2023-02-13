@@ -10,12 +10,12 @@
         margin: 0;
         padding: 0;
       }
-      .container {
+      .containerReg {
       	margin: 0 auto;
         width: 400px;
         padding: 10px;
       }
-      .content {
+      .contentReg {
       	text-align: center;
         background-color: #D3D3D3;
         border-radius: 5px;
@@ -31,9 +31,10 @@
 </style>
 </head>
 <body>
-	<%@ include file="background-video.jsp" %>
-	<div class="container">
-      <div class="content">
+	<%@ include file="integration/background-video.jsp" %>
+	
+	<div class="containerReg">
+      <div class="contentReg">
       
       <p> NOUVEAU COMPTE </p>
       

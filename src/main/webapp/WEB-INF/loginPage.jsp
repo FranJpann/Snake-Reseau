@@ -10,12 +10,12 @@
         margin: 0;
         padding: 0;
       }
-      .container {
+      .containerLog {
       	margin: 0 auto;
         width: 400px;
         padding: 10px;
       }
-      .content {
+      .contentLog {
       	text-align: center;
         background-color: #D3D3D3;
         border-radius: 5px;
@@ -23,7 +23,7 @@
         box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
       }
       label
-	  {	
+	  {
 	  		display: block;
 			width: 150px;
 			float: left;
@@ -31,9 +31,10 @@
 </style>
 </head>
 <body>
-	<%@ include file="background-video.jsp" %>
-	<div class="container">
-      <div class="content">
+	<%@ include file="integration/background-video.jsp" %>
+	
+	<div class="containerLog">
+      <div class="contentLog">
       
       <p> CONNEXION </p>
       

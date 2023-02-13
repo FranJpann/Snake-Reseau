@@ -7,11 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.UtilisateurDao;
-
 public class Deconnexion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private UtilisateurDao utilisateurDao;
 
     public Deconnexion() {
         super();
@@ -28,5 +25,4 @@ public class Deconnexion extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
 }
