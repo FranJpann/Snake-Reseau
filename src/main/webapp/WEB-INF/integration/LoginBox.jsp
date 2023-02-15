@@ -7,6 +7,7 @@
       				</div>
       				<div class="dropdown-content">
                     	<p><a href="/Snake-Reseau/User?id=${ sessionScope.currentUser.id }">Voir mon profil</a></p>
+                    	<p><a href="/Snake-Reseau/Shop">Shop</a></p>
                     	<p><a href="Deconnexion">Déconnexion</a></p>
                     </div>
       			</div>
